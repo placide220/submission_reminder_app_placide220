@@ -4,31 +4,31 @@
 read -p "Enter your name: " userName
 
 # Define main directory
-main_dir="submission_reminder_${userName}"
+main="submission_reminder_${userName}"
 
 # Create directory structure
-mkdir -p "$main_dir/config"
-mkdir -p "$main_dir/modules"
-mkdir -p "$main_dir/app"
-mkdir -p "$main_dir/assets"
+mkdir -p "$main/config"
+mkdir -p "$main/modules"
+mkdir -p "$main/app"
+mkdir -p "$main/assets"
 
 # Create necessary files
-touch "$main_dir/config/config.env"
-touch "$main_dir/assets/submissions.txt"
-touch "$main_dir/app/reminder.sh"
-touch "$main_dir/modules/functions.sh"
-touch "$main_dir/startup.sh"
-touch "$main_dir/README.md"
+touch "$main/config/config.env"
+touch "$main/assets/submissions.txt"
+touch "$main/app/reminder.sh"
+touch "$main/modules/functions.sh"
+touch "$main/startup.sh"
+touch "$main/README.md"
 
 # Populate config.env
-cat << EOF > "$main_dir/config/config.env"
+cat << EOF > "$main/config/config.env"
 # This is the config file
 ASSIGNMENT="Shell Navigation"
 DAYS_REMAINING=2
 EOF
 
 # Populate submissions.txt with sample student records
-cat << EOF > "$main_dir/assets/submissions.txt"
+cat << EOF > "$main/assets/submissions.txt"
 student, assignment, submission status
 Chinemerem, Shell Navigation, not submitted
 Chiagoziem, Git, submitted
@@ -42,7 +42,7 @@ Placide, Shell Navigation, submitted
 EOF
 
 # Populate functions.sh
-cat << 'EOF' > "$main_dir/modules/functions.sh"
+cat << 'EOF' > "$main/modules/functions.sh"
 #!/bin/bash
 
 # Function to read submissions file and output students who have not submitted
@@ -66,7 +66,7 @@ function check_submissions {
 EOF
 
 # Populate reminder.sh
-cat << 'EOF' > "$main_dir/app/reminder.sh"
+cat << 'EOF' > "$main/app/reminder.sh"
 #!/bin/bash
 
 # Source environment variables and helper functions
@@ -85,7 +85,7 @@ check_submissions $submissions_file
 EOF
 
 # Populate startup.sh
-cat << 'EOF' > "$main_dir/startup.sh"
+cat << 'EOF' > "$main/startup.sh"
 #!/bin/bash
 
 # Load environment variables and functions
@@ -95,11 +95,6 @@ source ./modules/functions.sh
 # Path to submission file
 submissions_file="./assets/submissions.txt"
 
-# Check if submissions file exists
-if [ ! -f "$submissions_file" ]; then
-    echo "Error: Submissions file ($submissions_file) is missing!"
-    exit 1
-fi
 
 # Display assignment details from the environment variables
 echo "Assignment: $ASSIGNMENT"
@@ -116,11 +111,11 @@ EOF
 
 
 # Make scripts executable
-chmod +x "$main_dir/modules/functions.sh"
-chmod +x "$main_dir/startup.sh"
-chmod +x "$main_dir/app/reminder.sh"
+chmod +x "$main/modules/functions.sh"
+chmod +x "$main/startup.sh"
+chmod +x "$main/app/reminder.sh"
 
 echo "Setup complete! Running the application..."
-cd "$main_dir"
+cd "$main"
 ./startup.sh
 
