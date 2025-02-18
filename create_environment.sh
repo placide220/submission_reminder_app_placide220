@@ -88,25 +88,7 @@ EOF
 cat << 'EOF' > "$main/startup.sh"
 #!/bin/bash
 
-# Load environment variables and functions
-source ./config/config.env
-source ./modules/functions.sh
-
-# Path to submission file
-submissions_file="./assets/submissions.txt"
-
-
-# Display assignment details from the environment variables
-echo "Assignment: $ASSIGNMENT"
-echo "Days remaining to submit: $DAYS_REMAINING days"
-
-echo "----------------------------------------------"
-
-# Call the function to check submissions
-check_submissions "$submissions_file"
-
-# Final message
-echo "Reminder application executed successfully!"
+bash ./app/reminder.sh
 EOF
 
 
